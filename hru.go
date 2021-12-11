@@ -11,11 +11,10 @@ import (
 
 func main() {
 	var reader = bufio.NewReader(os.Stdin)
-	total, _ := reader.ReadString();
 	b := strings.Builder{}
 	for {
 		message, _ := reader.ReadString('\n')
-		b.Grow(len(total))
+		b.Grow(len(message))
 		i := 0
 		for _, x := range message {
 			if unicode.IsLetter(x) {
