@@ -4,31 +4,28 @@ import (
 	"bufio"
 	"os"
 	"unicode"
-
 )
 
 func main() {
-	var reader = bufio.NewReader(os.Stdin)
+	r := bufio.NewReader(os.Stdin)
 	w := bufio.NewWriter(os.Stdout)
+	i := 0
 	for {
-		message, _ := reader.ReadString('\n')
-		i := 0
-		for _, x := range message {
-			if unicode.IsLetter(x) {
-				switch i {
-				case 0:
-					w.WriteRune('h')
-					i++
-				case 1:
-					w.WriteRune('r')
-					i++
-				default:
-					w.WriteRune('u')
-				}
-			} else {
-				w.WriteRune(x)
-				i = 0
+		c, _, _ := r.ReadRune()
+		if unicode.IsLetter(c) {
+			switch i {
+			case 0:
+				w.WriteRune('h')
+				i++
+			case 1:
+				w.WriteRune('r')
+				i++
+			default:
+				w.WriteRune('u')
 			}
+		} else {
+			w.WriteRune(c)
+			i = 0
 		}
 	}
 }
