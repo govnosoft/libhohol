@@ -6,20 +6,22 @@ import (
 	"unicode"
 )
 
+const BUFSIZE = 1048576
+
 func main() {
-	r := bufio.NewReader(os.Stdin)
-	w := bufio.NewWriter(os.Stdout)
-	i := 0
+	r := bufio.NewReaderSize(os.Stdin, BUFSIZE)
+	w := bufio.NewWriterSize(os.Stdout, BUFSIZE)
+	var i uint8
 	for {
 		c, _, _ := r.ReadRune()
 		if unicode.IsLetter(c) {
 			switch i {
 			case 0:
 				w.WriteRune('h')
-				i++
+				i = 1
 			case 1:
 				w.WriteRune('r')
-				i++
+				i = 2
 			default:
 				w.WriteRune('u')
 			}
